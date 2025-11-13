@@ -64,6 +64,35 @@
       color: #ff9900;
     }
 
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: #002147;
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
     /* ---------- Hero Section with Slideshow ---------- */
     .hero {
       height: 100vh;
@@ -610,46 +639,33 @@
 
     /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
+      .navbar {
+        padding: 15px 20px;
+      }
+
       nav ul {
         display: none;
         flex-direction: column;
         background-color: #ffffff;
         position: absolute;
-        top: 70px;
-        right: 20px;
-        width: 200px;
-        border-radius: 10px;
+        top: 100%;
+        left: 0;
+        width: 100%;
         box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         padding: 20px;
+        z-index: 1000;
       }
 
       nav ul.active {
         display: flex;
       }
 
+      nav ul li {
+        margin: 10px 0;
+      }
+
       .menu-toggle {
-        display: block;
-        cursor: pointer;
-      }
-
-      .menu-toggle div {
-        width: 25px;
-        height: 3px;
-        background-color: #002147;
-        margin: 5px 0;
-        transition: 0.3s;
-      }
-
-      .menu-toggle.active div:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
-      }
-
-      .menu-toggle.active div:nth-child(2) {
-        opacity: 0;
-      }
-
-      .menu-toggle.active div:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
+        display: flex;
       }
 
       .hero h1 {
@@ -659,10 +675,6 @@
 
       .hero-content {
         padding-top: 60px;
-      }
-
-      .navbar {
-        padding: 15px 20px;
       }
 
       .page-section {
@@ -756,10 +768,6 @@
       }
     }
 
-    .menu-toggle {
-      display: none;
-    }
-
   </style>
 </head>
 <body>
@@ -785,7 +793,9 @@
         </ul>
       </nav>
       <div class="menu-toggle" id="menu-toggle">
-        <div></div><div></div><div></div>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
   </header>
@@ -1185,6 +1195,14 @@
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       menuToggle.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
     });
 
     // Enquiry Button - Navigate to Contact
