@@ -294,6 +294,7 @@
     .parents-section {
       background-color: #002147;
       color: white;
+      padding: 100px 50px;
     }
 
     .parents-section h2 {
@@ -491,6 +492,122 @@
       font-size: 1rem;
     }
 
+    /* ---------- Contact Section ---------- */
+    .contact-section {
+      padding: 100px 50px;
+      background-color: #f8f9fa;
+    }
+
+    .contact-section h2 {
+      text-align: center;
+      color: #002147;
+      margin-bottom: 50px;
+      font-size: 2.5rem;
+    }
+
+    .contact-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .contact-info {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-info h3 {
+      color: #002147;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+    }
+
+    .contact-details {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contact-details li {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .contact-details li:last-child {
+      border-bottom: none;
+    }
+
+    .contact-details i {
+      color: #002147;
+      font-size: 1.2rem;
+      width: 20px;
+    }
+
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form h3 {
+      color: #002147;
+      margin-bottom: 30px;
+      font-size: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #002147;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: "Poppins", sans-serif;
+      box-sizing: border-box;
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: #002147;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background-color: #ff9900;
+      transform: translateY(-2px);
+    }
+
     /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
       nav ul {
@@ -503,6 +620,7 @@
         width: 200px;
         border-radius: 10px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        padding: 20px;
       }
 
       nav ul.active {
@@ -519,6 +637,19 @@
         height: 3px;
         background-color: #002147;
         margin: 5px 0;
+        transition: 0.3s;
+      }
+
+      .menu-toggle.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .menu-toggle.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
       }
 
       .hero h1 {
@@ -550,7 +681,9 @@
         padding: 60px 20px;
       }
 
-      .subjects-section {
+      .subjects-section,
+      .contact-section,
+      .parents-section {
         padding: 80px 20px;
       }
 
@@ -566,11 +699,60 @@
         padding: 20px;
       }
 
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .contact-info,
+      .contact-form {
+        padding: 30px;
+      }
+
       .phase-section h2,
       .parents-section h2,
       .welcome-message h2,
-      .subjects-section h2 {
+      .subjects-section h2,
+      .contact-section h2 {
         font-size: 2rem;
+      }
+
+      .features-grid,
+      .phase-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .logo span {
+        font-size: 16px;
+      }
+
+      .logo img {
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero button {
+        padding: 12px 30px;
+        font-size: 0.9rem;
+      }
+
+      .navbar {
+        padding: 10px 15px;
+      }
+
+      .contact-info,
+      .contact-form {
+        padding: 20px;
+      }
+
+      .phase-hero h2 {
+        font-size: 1.8rem;
       }
     }
 
@@ -623,7 +805,7 @@
 
     <div class="hero-content">
       <h1>Mmasepane Primary School</h1>
-      <button>Learn More</button>
+      <button id="enquiry-btn">Enquiry</button>
       <div class="social">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -734,6 +916,74 @@
             <li><strong>Physical Education</strong></li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="page-section contact-section">
+    <h2>Contact Us</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <ul class="contact-details">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>123 School Street, Education District<br>City, Province, 0001</span>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <span>+27 12 345 6789</span>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <span>info@mmasepaneprimary.co.za</span>
+          </li>
+          <li>
+            <i class="fas fa-clock"></i>
+            <span>Monday - Friday: 7:30 AM - 4:00 PM<br>Saturday: 8:00 AM - 12:00 PM</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="contact-form">
+        <h3>Send us a Message</h3>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <select id="subject" name="subject" required>
+              <option value="">Select a subject</option>
+              <option value="admission">Admission Enquiry</option>
+              <option value="academic">Academic Information</option>
+              <option value="sports">Sports Programme</option>
+              <option value="events">School Events</option>
+              <option value="general">General Information</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
       </div>
     </div>
   </section>
@@ -928,17 +1178,34 @@
     <p>Information about our sports programs and achievements.</p>
   </section>
 
-  <section id="contact" class="page-section" style="padding: 100px 50px; background: #f8f9fa; text-align: center;">
-    <h2>Contact Us</h2>
-    <p>Get in touch with our school administration and staff.</p>
-  </section>
-
   <script>
     // Mobile Menu Toggle
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+
+    // Enquiry Button - Navigate to Contact
+    document.getElementById('enquiry-btn').addEventListener('click', function() {
+      // Remove active class from all sections
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Add active class to contact section
+      document.getElementById('contact').classList.add('active');
+      
+      // Hide hero section
+      document.getElementById('hero-section').style.display = 'none';
+      
+      // Close mobile menu if open
+      navLinks.classList.remove('active');
+      menuToggle.classList.remove('active');
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     // Main Home Slideshow Functionality
@@ -1066,6 +1333,13 @@
       icon.classList.toggle('rotate');
     }
 
+    // Contact Form Submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your enquiry! We will get back to you soon.');
+      this.reset();
+    });
+
     // Page Navigation
     const navLinksElements = document.querySelectorAll('.nav-link');
     const pageSections = document.querySelectorAll('.page-section');
@@ -1091,6 +1365,7 @@
         
         // Close mobile menu if open
         navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
         
         // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
