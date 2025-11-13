@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mmasepane Primary School</title>
+  <style>
+    /* ---------- General Styles ---------- */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .logo span {
+      font-weight: 700;
+      color: #002147; /* navy blue */
+      font-size: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #002147;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ff9900;
+    }
+
+    /* ---------- Hero Section with Slideshow ---------- */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .slideshow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      padding-top: 80px; /* Compensate for fixed header */
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero button {
+      background-color: #002147;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    .hero button:hover {
+      background-color: #ff9900;
+      transform: translateY(-2px);
+    }
+
+    /* ---------- Social Links ---------- */
+    .social {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social a {
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social a:hover {
+      color: #ff9900;
+      transform: translateY(-2px);
+    }
+
+    /* Slide Navigation Dots */
+    .slide-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dot.active {
+      background-color: white;
+    }
+
+    /* ---------- Page Sections ---------- */
+    .page-section {
+      display: none;
+      min-height: 80vh;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    /* ---------- Phase Sections with Background Slides ---------- */
+    .phase-hero {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .phase-slideshow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .phase-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .phase-slide.active {
+      opacity: 1;
+    }
+
+    .phase-hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+
+    .phase-hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+    }
+
+    .phase-hero h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .phase-content-section {
+      padding: 80px 50px;
+      background-color: #f8f9fa;
+    }
+
+    .phase-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .phase-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .phase-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .phase-card h3 {
+      color: #002147;
+      margin-bottom: 15px;
+    }
+
+    .phase-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Parents Section */
+    .parents-section {
+      background-color: #002147;
+      color: white;
+    }
+
+    .parents-section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+    }
+
+    .parents-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Home Section */
+    .home-section {
+      padding: 100px 50px 80px;
+      background-color: #f8f9fa;
+    }
+
+    .welcome-message {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .welcome-message h2 {
+      color: #002147;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    .welcome-message p {
+      font-size: 1.2rem;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 {
+      color: #002147;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Phase Slide Navigation Dots */
+    .phase-slide-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .phase-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .phase-dot.active {
+      background-color: white;
+    }
+
+    /* ---------- Subjects Section ---------- */
+    .subjects-section {
+      padding: 100px 50px;
+      background-color: #f8f9fa;
+    }
+
+    .subjects-section h2 {
+      text-align: center;
+      color: #002147;
+      margin-bottom: 50px;
+      font-size: 2.5rem;
+    }
+
+    .accordion {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      background: #002147;
+      color: white;
+      padding: 20px 30px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+
+    .accordion-header:hover {
+      background: #003366;
+    }
+
+    .accordion-header h3 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .accordion-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .accordion-icon.rotate {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .accordion-content.active {
+      padding: 30px;
+      max-height: 1000px;
+    }
+
+    .subject-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .subject-list li {
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1.1rem;
+    }
+
+    .subject-list li:last-child {
+      border-bottom: none;
+    }
+
+    .subject-category {
+      color: #002147;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .subject-sublist {
+      list-style: none;
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .subject-sublist li {
+      padding: 8px 0;
+      border-bottom: none;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: #ffffff;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 200px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+      }
+
+      .menu-toggle div {
+        width: 25px;
+        height: 3px;
+        background-color: #002147;
+        margin: 5px 0;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+        padding: 0 20px;
+      }
+
+      .hero-content {
+        padding-top: 60px;
+      }
+
+      .navbar {
+        padding: 15px 20px;
+      }
+
+      .page-section {
+        padding: 80px 20px 60px;
+      }
+
+      .phase-hero {
+        height: 50vh;
+      }
+
+      .phase-hero h2 {
+        font-size: 2rem;
+      }
+
+      .phase-content-section {
+        padding: 60px 20px;
+      }
+
+      .subjects-section {
+        padding: 80px 20px;
+      }
+
+      .accordion-header {
+        padding: 15px 20px;
+      }
+
+      .accordion-header h3 {
+        font-size: 1.3rem;
+      }
+
+      .accordion-content.active {
+        padding: 20px;
+      }
+
+      .phase-section h2,
+      .parents-section h2,
+      .welcome-message h2,
+      .subjects-section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="Mmasepane Primary School Logo" />
+        <span>Mmasepane Primary School</span>
+      </div>
+      <nav>
+        <ul id="nav-links">
+          <li><a href="#" class="nav-link" data-target="home">Home</a></li>
+          <li><a href="#" class="nav-link" data-target="about">About</a></li>
+          <li><a href="#" class="nav-link" data-target="subjects">Subjects</a></li>
+          <li><a href="#" class="nav-link" data-target="teachers">Teachers</a></li>
+          <li><a href="#" class="nav-link" data-target="events">Events</a></li>
+          <li><a href="#" class="nav-link" data-target="sports">Sports</a></li>
+          <li><a href="#" class="nav-link" data-target="parents">Parents</a></li>
+          <li><a href="#" class="nav-link" data-target="foundation-phase">Foundation Phase</a></li>
+          <li><a href="#" class="nav-link" data-target="intermediate-phase">Intermediate Phase</a></li>
+          <li><a href="#" class="nav-link" data-target="senior-phase">Senior Phase</a></li>
+          <li><a href="#" class="nav-link" data-target="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="menu-toggle" id="menu-toggle">
+        <div></div><div></div><div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section (Only shows on Home page) -->
+  <section class="hero" id="hero-section">
+    <div class="slideshow" id="slideshow">
+      <div class="slide active" style="background-image: url('image1.png');"></div>
+      <div class="slide" style="background-image: url('image2.png');"></div>
+      <div class="slide" style="background-image: url('image3.jpg');"></div>
+      <div class="slide" style="background-image: url('image10.jpg');"></div>
+    </div>
+    
+    <div class="slide-dots" id="slideDots">
+      <!-- Dots will be generated by JavaScript -->
+    </div>
+
+    <div class="hero-content">
+      <h1>Mmasepane Primary School</h1>
+      <button>Learn More</button>
+      <div class="social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Home Section -->
+  <section id="home" class="page-section active">
+    <div class="home-section">
+      <div class="welcome-message">
+        <h2>Welcome to Mmasepane Primary School</h2>
+        <p>At Mmasepane Primary School, we are committed to providing quality education that nurtures young minds and prepares them for a successful future. Our dedicated staff, modern facilities, and comprehensive curriculum ensure that every child receives the attention and support they need to thrive.</p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Quality Education</h3>
+            <p>Excellence in teaching and learning through innovative methods and dedicated educators.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Safe Environment</h3>
+            <p>A secure and nurturing environment where students can learn and grow with confidence.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Holistic Development</h3>
+            <p>Focusing on academic, social, emotional, and physical development of every child.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Community Partnership</h3>
+            <p>Strong collaboration between school, parents, and the community for student success.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subjects Section -->
+  <section id="subjects" class="page-section subjects-section">
+    <h2>Our Curriculum & Subjects</h2>
+    <div class="accordion">
+      <!-- Foundation Phase Accordion -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3>Foundation Phase (Grades R-3)</h3>
+          <span class="accordion-icon">▼</span>
+        </div>
+        <div class="accordion-content">
+          <ul class="subject-list">
+            <li><strong>Home Language</strong> (e.g. English, isiZulu, Sepedi, Setswana, Afrikaans, etc.)</li>
+            <li><strong>First Additional Language</strong> (introduced from Grade 1 or 2 in some schools)</li>
+            <li><strong>Mathematics</strong></li>
+            <li>
+              <strong>Life Skills</strong>, which includes:
+              <ul class="subject-sublist">
+                <li>Beginning Knowledge (simple science & social studies)</li>
+                <li>Creative Arts (music, drama, visual arts)</li>
+                <li>Physical Education (PE)</li>
+                <li>Personal and Social Well-being</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Intermediate Phase Accordion -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3>Intermediate Phase (Grades 4-6)</h3>
+          <span class="accordion-icon">▼</span>
+        </div>
+        <div class="accordion-content">
+          <ul class="subject-list">
+            <li><strong>Home Language</strong></li>
+            <li><strong>First Additional Language</strong></li>
+            <li><strong>Mathematics</strong></li>
+            <li><strong>Natural Sciences and Technology</strong></li>
+            <li><strong>Social Sciences</strong> (History and Geography)</li>
+            <li><strong>Life Skills</strong>, which includes:
+              <ul class="subject-sublist">
+                <li>Creative Arts</li>
+                <li>Physical Education</li>
+                <li>Personal and Social Well-being</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Senior Phase Accordion -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <h3>Senior Phase (Grade 7)</h3>
+          <span class="accordion-icon">▼</span>
+        </div>
+        <div class="accordion-content">
+          <ul class="subject-list">
+            <li><strong>Home Language</strong></li>
+            <li><strong>First Additional Language</strong></li>
+            <li><strong>Mathematics</strong></li>
+            <li><strong>Natural Sciences</strong></li>
+            <li><strong>Social Sciences</strong> (History and Geography)</li>
+            <li><strong>Technology</strong></li>
+            <li><strong>Economic Management Sciences</strong> (EMS)</li>
+            <li><strong>Life Orientation</strong></li>
+            <li><strong>Creative Arts</strong></li>
+            <li><strong>Physical Education</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foundation Phase Section -->
+  <section id="foundation-phase" class="page-section">
+    <div class="phase-hero">
+      <div class="phase-slideshow" id="foundation-slideshow">
+        <div class="phase-slide active" style="background-image: url('image11.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('image12.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('image13.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('images7.jpg');"></div>
+      </div>
+      
+      <div class="phase-slide-dots" id="foundation-slideDots">
+        <!-- Dots will be generated by JavaScript -->
+      </div>
+
+      <div class="phase-hero-content">
+        <h2>Foundation Phase</h2>
+        <p style="font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Building Strong Foundations for Lifelong Learning</p>
+      </div>
+    </div>
+    
+    <div class="phase-content-section">
+      <div class="phase-content">
+        <p style="text-align: center; font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">
+          Our Foundation Phase (Grades R-3) focuses on developing fundamental literacy, numeracy, and life skills in a nurturing environment.
+        </p>
+        <div class="phase-grid">
+          <div class="phase-card">
+            <h3>Grade R</h3>
+            <p>Play-based learning, social development, and early literacy and numeracy skills.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Grade 1</h3>
+            <p>Reading readiness, basic writing skills, and fundamental mathematics.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Grade 2</h3>
+            <p>Developing reading fluency, writing sentences, and building math confidence.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Grade 3</h3>
+            <p>Consolidating literacy and numeracy skills in preparation for Intermediate Phase.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intermediate Phase Section -->
+  <section id="intermediate-phase" class="page-section">
+    <div class="phase-hero">
+      <div class="phase-slideshow" id="intermediate-slideshow">
+        <div class="phase-slide active" style="background-image: url('image11.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('image12.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('image13.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('images7.jpg');"></div>
+      </div>
+      
+      <div class="phase-slide-dots" id="intermediate-slideDots">
+        <!-- Dots will be generated by JavaScript -->
+      </div>
+
+      <div class="phase-hero-content">
+        <h2>Intermediate Phase</h2>
+        <p style="font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Expanding Knowledge and Developing Skills</p>
+      </div>
+    </div>
+    
+    <div class="phase-content-section" style="background-color: #fff;">
+      <div class="phase-content">
+        <p style="text-align: center; font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">
+          Our Intermediate Phase (Grades 4-6) builds on foundational skills while introducing more specialized subjects and independent learning.
+        </p>
+        <div class="phase-grid">
+          <div class="phase-card">
+            <h3>Grade 4</h3>
+            <p>Transition to subject-based learning with specialized teachers and more complex concepts.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Grade 5</h3>
+            <p>Developing critical thinking skills and deeper understanding across all subjects.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Grade 6</h3>
+            <p>Preparing for Senior Phase with advanced concepts and increased responsibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Senior Phase Section -->
+  <section id="senior-phase" class="page-section">
+    <div class="phase-hero">
+      <div class="phase-slideshow" id="senior-slideshow">
+        <div class="phase-slide active" style="background-image: url('image11.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('image12.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('image13.jpg');"></div>
+        <div class="phase-slide" style="background-image: url('images7.jpg');"></div>
+      </div>
+      
+      <div class="phase-slide-dots" id="senior-slideDots">
+        <!-- Dots will be generated by JavaScript -->
+      </div>
+
+      <div class="phase-hero-content">
+        <h2>Senior Phase</h2>
+        <p style="font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Preparing for High School Excellence</p>
+      </div>
+    </div>
+    
+    <div class="phase-content-section">
+      <div class="phase-content">
+        <p style="text-align: center; font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;">
+          Our Senior Phase (Grades 7) prepares students for high school with advanced curriculum and leadership opportunities.
+        </p>
+        <div class="phase-grid">
+          <div class="phase-card">
+            <h3>Grade 7</h3>
+            <p>Comprehensive preparation for high school with focus on academic excellence and leadership skills.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Academic Excellence</h3>
+            <p>Rigorous curriculum designed to prepare students for the challenges of high school.</p>
+          </div>
+          <div class="phase-card">
+            <h3>Leadership Development</h3>
+            <p>Opportunities for student leadership, mentorship, and community involvement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parents Section -->
+  <section id="parents" class="page-section parents-section">
+    <h2>Parents & Guardians</h2>
+    <div class="parents-content">
+      <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+        We believe in strong partnerships between school and home. Your involvement is crucial to your child's success.
+      </p>
+      <div class="phase-grid">
+        <div class="phase-card" style="background: rgba(255,255,255,0.1); color: white;">
+          <h3>Parent Portal</h3>
+          <p>Access your child's academic progress, attendance, and school announcements.</p>
+        </div>
+        <div class="phase-card" style="background: rgba(255,255,255,0.1); color: white;">
+          <h3>Volunteer Opportunities</h3>
+          <p>Get involved in school activities, events, and classroom support.</p>
+        </div>
+        <div class="phase-card" style="background: rgba(255,255,255,0.1); color: white;">
+          <h3>Parent-Teacher Meetings</h3>
+          <p>Regular meetings to discuss your child's progress and development.</p>
+        </div>
+        <div class="phase-card" style="background: rgba(255,255,255,0.1); color: white;">
+          <h3>School Policies</h3>
+          <p>Important information about school rules, uniforms, and procedures.</p>
+        </div>
+        <div class="phase-card" style="background: rgba(255,255,255,0.1); color: white;">
+          <h3>Support Resources</h3>
+          <p>Resources to help you support your child's learning at home.</p>
+        </div>
+        <div class="phase-card" style="background: rgba(255,255,255,0.1); color: white;">
+          <h3>Communication</h3>
+          <p>Stay informed through newsletters, emails, and our school app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Sections (Placeholders) -->
+  <section id="about" class="page-section" style="padding: 100px 50px; background: #f8f9fa; text-align: center;">
+    <h2>About Us</h2>
+    <p>Information about our school's history, mission, and values will be displayed here.</p>
+  </section>
+
+  <section id="teachers" class="page-section" style="padding: 100px 50px; background: white; text-align: center;">
+    <h2>Our Teachers</h2>
+    <p>Meet our dedicated teaching staff and their qualifications.</p>
+  </section>
+
+  <section id="events" class="page-section" style="padding: 100px 50px; background: #f8f9fa; text-align: center;">
+    <h2>Events</h2>
+    <p>School calendar, upcoming events, and important dates.</p>
+  </section>
+
+  <section id="sports" class="page-section" style="padding: 100px 50px; background: white; text-align: center;">
+    <h2>Sports</h2>
+    <p>Information about our sports programs and achievements.</p>
+  </section>
+
+  <section id="contact" class="page-section" style="padding: 100px 50px; background: #f8f9fa; text-align: center;">
+    <h2>Contact Us</h2>
+    <p>Get in touch with our school administration and staff.</p>
+  </section>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Main Home Slideshow Functionality
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slideDotsContainer = document.getElementById('slideDots');
+    const slideInterval = 5000; // 5 seconds
+
+    // Create dots for main slideshow
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(index));
+      slideDotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function goToSlide(slideIndex) {
+      // Remove active class from current slide and dot
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      
+      // Update current slide index
+      currentSlide = slideIndex;
+      
+      // Add active class to new slide and dot
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+      const next = (currentSlide + 1) % slides.length;
+      goToSlide(next);
+    }
+
+    // Auto-advance main slides
+    let slideTimer = setInterval(nextSlide, slideInterval);
+
+    // Pause main slideshow on hover
+    const slideshow = document.getElementById('slideshow');
+    slideshow.addEventListener('mouseenter', () => {
+      clearInterval(slideTimer);
+    });
+
+    slideshow.addEventListener('mouseleave', () => {
+      slideTimer = setInterval(nextSlide, slideInterval);
+    });
+
+    // Phase Slideshow Functionality
+    function initializePhaseSlideshow(phaseId) {
+      const phaseSlides = document.querySelectorAll(`#${phaseId}-slideshow .phase-slide`);
+      const phaseDotsContainer = document.getElementById(`${phaseId}-slideDots`);
+      let currentPhaseSlide = 0;
+      
+      // Create dots for phase slideshow
+      phaseSlides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('phase-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToPhaseSlide(phaseId, index));
+        phaseDotsContainer.appendChild(dot);
+      });
+
+      const phaseDots = document.querySelectorAll(`#${phaseId}-slideDots .phase-dot`);
+
+      function goToPhaseSlide(phase, slideIndex) {
+        // Remove active class from current slide and dot
+        phaseSlides[currentPhaseSlide].classList.remove('active');
+        phaseDots[currentPhaseSlide].classList.remove('active');
+        
+        // Update current slide index
+        currentPhaseSlide = slideIndex;
+        
+        // Add active class to new slide and dot
+        phaseSlides[currentPhaseSlide].classList.add('active');
+        phaseDots[currentPhaseSlide].classList.add('active');
+      }
+
+      function nextPhaseSlide() {
+        const next = (currentPhaseSlide + 1) % phaseSlides.length;
+        goToPhaseSlide(phaseId, next);
+      }
+
+      // Auto-advance phase slides
+      let phaseSlideTimer = setInterval(nextPhaseSlide, 5000);
+
+      // Pause phase slideshow on hover
+      const phaseSlideshow = document.getElementById(`${phaseId}-slideshow`);
+      phaseSlideshow.addEventListener('mouseenter', () => {
+        clearInterval(phaseSlideTimer);
+      });
+
+      phaseSlideshow.addEventListener('mouseleave', () => {
+        phaseSlideTimer = setInterval(nextPhaseSlide, 5000);
+      });
+    }
+
+    // Initialize all phase slideshows
+    initializePhaseSlideshow('foundation');
+    initializePhaseSlideshow('intermediate');
+    initializePhaseSlideshow('senior');
+
+    // Accordion Functionality
+    function toggleAccordion(header) {
+      const content = header.nextElementSibling;
+      const icon = header.querySelector('.accordion-icon');
+      
+      // Close all other accordions
+      document.querySelectorAll('.accordion-content').forEach(item => {
+        if (item !== content) {
+          item.classList.remove('active');
+        }
+      });
+      
+      document.querySelectorAll('.accordion-icon').forEach(item => {
+        if (item !== icon) {
+          item.classList.remove('rotate');
+        }
+      });
+      
+      // Toggle current accordion
+      content.classList.toggle('active');
+      icon.classList.toggle('rotate');
+    }
+
+    // Page Navigation
+    const navLinksElements = document.querySelectorAll('.nav-link');
+    const pageSections = document.querySelectorAll('.page-section');
+    const heroSection = document.getElementById('hero-section');
+
+    navLinksElements.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all sections and links
+        pageSections.forEach(section => section.classList.remove('active'));
+        
+        // Add active class to target section
+        const target = link.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
+        
+        // Show/Hide hero section based on current page
+        if (target === 'home') {
+          heroSection.style.display = 'flex';
+        } else {
+          heroSection.style.display = 'none';
+        }
+        
+        // Close mobile menu if open
+        navLinks.classList.remove('active');
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Initialize - show hero section only on home page
+    heroSection.style.display = 'flex';
+  </script>
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
